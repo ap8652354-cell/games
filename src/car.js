@@ -13,7 +13,11 @@ export function buildCar(scene, world, startPos = new THREE.Vector3(0, 1.5, 88))
   // ---------- Physics chassis ----------
   // Bugatti Chiron is ~4.5m long, 2.0m wide, 1.2m tall. Mass ~1996 kg.
   const chassisShape = new CANNON.Box(new CANNON.Vec3(1.0, 0.35, 2.25));
-  const chassisBody = new CANNON.Body({ mass: 1900, material: new CANNON.Material('chassis') });
+  const chassisBody = new CANNON.Body({
+    mass: 1900,
+    material: new CANNON.Material('chassis'),
+    allowSleep: false,   // RaycastVehicle.applyEngineForce does NOT wake the body
+  });
   chassisBody.addShape(chassisShape, new CANNON.Vec3(0, 0, 0));
   // Add a lower shape to keep CG low (helps stability)
   const lowShape = new CANNON.Box(new CANNON.Vec3(0.95, 0.18, 2.1));

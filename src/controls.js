@@ -54,7 +54,7 @@ export function createControls() {
     const ltK  = (keys.KeyA || keys.ArrowLeft || keys._lt)  ? 1 : 0;
     const rtK  = (keys.KeyD || keys.ArrowRight|| keys._rt)  ? 1 : 0;
 
-    const k = Math.min(1, dt * 12);
+    const k = Math.min(1, dt * 24);
     smoothFwd  = ease(smoothFwd,  fwdK, k);
     smoothBack = ease(smoothBack, bckK, k);
     smoothLeft = ease(smoothLeft, ltK,  Math.min(1, dt * 8));

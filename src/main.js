@@ -124,8 +124,8 @@ function updateCamera(dt) {
 // =============================================================
 //   Driving model
 // =============================================================
-const MAX_ENGINE_FORCE = 2400;
-const MAX_REVERSE_FORCE = 1200;
+const MAX_ENGINE_FORCE = 5000;
+const MAX_REVERSE_FORCE = 2500;
 const MAX_BRAKE = 35;
 const MAX_STEER = 0.55;          // radians
 const STEER_RATE = 2.5;          // rad/sec
@@ -138,6 +138,13 @@ const FL = 0, FR = 1, RL = 2, RR = 3;
 
 function applyDriving(dt, kmh) {
   const s = controls.state;
+
+  // Make sure the chassis is awake whenever the player is touching the keys.
+  // RaycastVehicle.applyEngineForce only sets a property; it does not wake the
+  // body. If the chassis sleeps after settling, no engine force is applied.
+  if (s.forward > 0.05 || s.back > 0.05 || s.left > 0.05 || s.right > 0.05 || s.handbrake) {
+    car.chassisBody.wakeUp();
+  }
 
   // ----- Steering with speed-sensitive scaling -----
   const speedFactor = Math.max(0.45, 1 - kmh / 320);
