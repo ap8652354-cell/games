@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Bugatti Drive 3D</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="loading">
+    <div class="loader-inner">
+      <div class="logo">BUGATTI</div>
+      <div class="sub">DRIVE 3D</div>
+      <div class="bar"><div class="fill" id="loadFill"></div></div>
+      <div class="hint" id="loadHint">Warming up the W16...</div>
+    </div>
+  </div>
+
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="speedo">
+      <svg viewBox="0 0 200 200" class="dial">
+        <defs>
+          <linearGradient id="needleGrad" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff3860"/>
+            <stop offset="1" stop-color="#ffb347"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="92" class="ring"/>
+        <circle cx="100" cy="100" r="86" class="ring2"/>
+        <g id="ticks"></g>
+        <line id="needle" x1="100" y1="100" x2="100" y2="30" stroke="url(#needleGrad)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="100" cy="100" r="6" class="hub"/>
+        <text x="100" y="150" class="kmh" id="speedNum">0</text>
+        <text x="100" y="170" class="unit">km/h</text>
+      </svg>
+    </div>
+    <div class="gear-box">
+      <div class="label">GEAR</div>
+      <div class="gear" id="gear">N</div>
+      <div class="rpm-bar"><div class="rpm-fill" id="rpmFill"></div></div>
+    </div>
+    <div class="help">
+      <div><b>W</b> accelerate &nbsp; <b>S</b> brake/reverse</div>
+      <div><b>A</b>/<b>D</b> steer &nbsp; <b>Space</b> handbrake</div>
+      <div><b>C</b> camera &nbsp; <b>R</b> reset &nbsp; <b>H</b> hide HUD</div>
+    </div>
+  </div>
+
+  <div id="touch" class="hidden">
+    <div class="tpad left">
+      <button class="tbtn" data-key="a">&lsaquo;</button>
+      <button class="tbtn" data-key="d">&rsaquo;</button>
+    </div>
+    <div class="tpad right">
+      <button class="tbtn brake" data-key="s">BRK</button>
+      <button class="tbtn gas" data-key="w">GAS</button>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

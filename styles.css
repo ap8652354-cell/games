@@ -1,0 +1,84 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #fff; user-select: none; -webkit-user-select: none; }
+
+#game { display: block; width: 100vw; height: 100vh; touch-action: none; }
+
+/* ============== Loading screen ============== */
+#loading {
+  position: fixed; inset: 0; z-index: 100;
+  background: radial-gradient(ellipse at center, #14233f 0%, #050810 70%);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .8s ease;
+}
+#loading.hidden { opacity: 0; pointer-events: none; }
+.loader-inner { text-align: center; }
+.logo { font-size: 56px; letter-spacing: 14px; font-weight: 800; color: #00bfff;
+  text-shadow: 0 0 24px rgba(0,191,255,.6); }
+.sub  { font-size: 18px; letter-spacing: 12px; color: #8fb6c8; margin-top: 4px; }
+.bar  { width: 280px; height: 4px; margin: 28px auto 12px; background: #1c2a44; border-radius: 4px; overflow: hidden; }
+.fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00bfff, #ff3860); transition: width .3s ease; }
+.hint { font-size: 12px; color: #8fb6c8; letter-spacing: 2px; }
+
+/* ============== HUD ============== */
+#hud {
+  position: fixed; inset: 0; pointer-events: none; z-index: 10;
+  transition: opacity .3s ease;
+}
+#hud.hidden { opacity: 0; }
+
+.speedo {
+  position: absolute; bottom: 24px; left: 24px;
+  width: 220px; height: 220px;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.6));
+}
+.dial { width: 100%; height: 100%; }
+.ring  { fill: rgba(8, 14, 26, .82); stroke: #2c3e6e; stroke-width: 2; }
+.ring2 { fill: none; stroke: rgba(0,191,255,.18); stroke-width: 1; }
+.hub   { fill: #0c1326; stroke: #ff3860; stroke-width: 2; }
+.kmh   { fill: #fff; font-size: 26px; font-weight: 700; text-anchor: middle; }
+.unit  { fill: #8fb6c8; font-size: 10px; text-anchor: middle; letter-spacing: 3px; }
+.tick  { stroke: #6f86b5; stroke-width: 2; }
+.tick.major { stroke: #cfe1ff; stroke-width: 3; }
+.tick-label { fill: #cfe1ff; font-size: 9px; text-anchor: middle; }
+
+.gear-box {
+  position: absolute; bottom: 24px; left: 260px;
+  background: rgba(8,14,26,.82); border: 1px solid #2c3e6e; border-radius: 10px;
+  padding: 12px 16px; min-width: 130px;
+}
+.gear-box .label { font-size: 10px; letter-spacing: 4px; color: #8fb6c8; }
+.gear-box .gear  { font-size: 38px; font-weight: 800; color: #ffb347;
+  text-shadow: 0 0 14px rgba(255,179,71,.45); line-height: 1; margin: 4px 0 8px; }
+.rpm-bar { height: 6px; background: #1c2a44; border-radius: 4px; overflow: hidden; }
+.rpm-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00bfff, #ffb347 70%, #ff3860); transition: width .08s linear; }
+
+.help {
+  position: absolute; top: 18px; right: 18px;
+  background: rgba(8,14,26,.7); border: 1px solid #2c3e6e; border-radius: 8px;
+  padding: 10px 14px; font-size: 12px; line-height: 1.7; color: #cfe1ff;
+}
+.help b { color: #ffb347; padding: 1px 5px; border: 1px solid #ffb347; border-radius: 3px; font-size: 11px; }
+
+/* ============== Touch controls (mobile) ============== */
+#touch { position: fixed; inset: 0; pointer-events: none; z-index: 11; }
+#touch.hidden { display: none; }
+.tpad { position: absolute; bottom: 24px; pointer-events: auto; display: flex; gap: 14px; }
+.tpad.left  { left: 24px; }
+.tpad.right { right: 24px; }
+.tbtn {
+  width: 78px; height: 78px; border-radius: 50%;
+  background: rgba(8,14,26,.65); color: #cfe1ff;
+  border: 2px solid #2c3e6e; font-size: 24px; font-weight: 700;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  cursor: pointer; transition: transform .08s, background .15s;
+}
+.tbtn:active { transform: scale(.92); background: rgba(0,191,255,.25); border-color: #00bfff; }
+.tbtn.gas    { background: rgba(46, 204, 113, .25); border-color: #2ecc71; color: #aef5cc; }
+.tbtn.brake  { background: rgba(231, 76, 60, .25);  border-color: #ff3860; color: #ffc1c1; }
+
+@media (max-width: 720px) {
+  .speedo { width: 150px; height: 150px; bottom: 12px; left: 12px; }
+  .gear-box { bottom: 12px; left: 170px; padding: 8px 12px; min-width: 100px; }
+  .gear-box .gear { font-size: 28px; }
+  .help { font-size: 10px; padding: 8px 10px; }
+}
